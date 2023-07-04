@@ -112,10 +112,6 @@ public class ArticlesServlet extends HttpServlet {
         Connection connection = (Connection) context.getAttribute("dbConnection");
         // BEGIN
         String id = getId(request);
-        if (id == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
 
         Map<String, String> article = new HashMap<>();
         String query = "SELECT * FROM articles WHERE id=?;";
@@ -126,13 +122,16 @@ public class ArticlesServlet extends HttpServlet {
             ResultSet rs = statement.executeQuery();
             // При помощи метода next() можно итерировать по строкам в результате
             // Указатель перемещается на следующую строку в результатах
-            while (rs.next()) {
+            if (rs.next()) {
                 article = Map.of(
                                 // Так можно получить значение нужного поля в текущей строке
                                 "id", rs.getString("id"),
                                 "title", rs.getString("title"),
                                 "body", rs.getString("body")
                 );
+            } else {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
             }
             // Устанавливаем значения атрибутов
             request.setAttribute("article", article);
