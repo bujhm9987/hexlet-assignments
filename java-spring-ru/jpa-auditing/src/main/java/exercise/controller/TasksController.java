@@ -54,6 +54,8 @@ public class TasksController {
 
         findTask.setTitle(task.getTitle());
         findTask.setDescription(task.getDescription());
+
+        taskRepository.save(findTask);
         return findTask;
     }
     // END
