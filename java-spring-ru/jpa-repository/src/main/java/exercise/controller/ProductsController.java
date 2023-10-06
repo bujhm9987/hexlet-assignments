@@ -25,12 +25,10 @@ public class ProductsController {
 
     // BEGIN
     @GetMapping(path = "")
-    public List<Product> index(@RequestParam (defaultValue = "-1", required = false) int min,
-                               @RequestParam (defaultValue = "-1", required = false) int max) {
-        if (min == -1 && max == -1) {
-            return productRepository.findAll(Sort.by(Sort.Order.asc("price")));
-        }
-        return productRepository.findByPriceBetween(min, max);
+    public List<Product> index(@RequestParam (defaultValue = Integer.MIN_VALUE + "", required = false) int min,
+                               @RequestParam (defaultValue = Integer.MAX_VALUE + "", required = false) int max) {
+
+        return productRepository.findByPriceBetween(min, max, Sort.by(Sort.Order.asc("price")));
     }
     // END
 
