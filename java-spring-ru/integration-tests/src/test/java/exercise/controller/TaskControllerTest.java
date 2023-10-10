@@ -88,16 +88,14 @@ public class TaskControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(task));
 
-        var result = mockMvc.perform(request)
-                .andExpect(status().isCreated())
-                .andReturn();
+        mockMvc.perform(request)
+                .andExpect(status().isCreated());
 
-        var body = result.getResponse().getContentAsString();
+        var taskInDb = taskRepository.findByTitle(task.getTitle()).get();
 
-        assertThatJson(body).and(
-                t -> t.node("title").isEqualTo(task.getTitle()),
-                d -> d.node("description").isEqualTo(task.getDescription())
-        );
+        assertThat(taskInDb).isNotNull();
+        assertThat(taskInDb.getTitle()).isEqualTo(task.getTitle());
+        assertThat(taskInDb.getDescription()).isEqualTo(task.getDescription());
     }
 
     @Test
@@ -112,7 +110,7 @@ public class TaskControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(data));
 
-        var result = mockMvc.perform(request)
+        mockMvc.perform(request)
                 .andExpect(status().isOk());
 
         task = taskRepository.findById(task.getId()).get();
@@ -132,7 +130,5 @@ public class TaskControllerTest {
         task = taskRepository.findById(task.getId()).orElse(null);
         assertThat(task).isNull();
     }
-
-
 // END
 }
