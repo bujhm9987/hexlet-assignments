@@ -28,8 +28,11 @@ public class PostsController {
     private CommentRepository commentRepository;
 
     @GetMapping(path = "")
-    public List<Post> index() {
-        return postRepository.findAll();
+    public List<PostDTO> index() {
+        var posts = postRepository.findAll();
+        return posts.stream()
+                .map(this::toPostDTO)
+                .toList();
     }
 
     @GetMapping(path = "/{id}")
