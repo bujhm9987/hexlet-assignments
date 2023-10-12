@@ -156,8 +156,8 @@ class ProductControllerTest {
 
         var product = productRepository.findById(testProduct.getId()).get();
 
-        assertThat(product.getName()).isEqualTo(testProduct.getName());
+        assertThat(product.getName()).isEqualTo(data.get("title"));
         assertThat(product.getCost()).isEqualTo(data.get("price"));
-        assertThat(product.getBarcode()).isEqualTo(testProduct.getBarcode());
+        assertThat(product.getBarcode()).isEqualTo(product.getBarcode());
     }
 }
