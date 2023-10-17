@@ -20,5 +20,19 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 // Дополнительная задача
 // Если решите сделать дополнительную задачу, измените существующий репозиторий для работы с Querydsl предикатами
 // BEGIN
+//public interface UserRepository extends
+//        JpaRepository<User, Long>,
+//        QuerydslPredicateExecutor<User>,
+//        QuerydslBinderCustomizer<QUser> {
+//
+//    @Override
+//    default void customize(QuerydslBindings bindings, QUser user) {
+//
+//        bindings.bind(user.firstName, user.lastName, user.email, user.profession).first(
+//                (StringPath path, String value) -> path.containsIgnoreCase(value)
+//        );
+//    }
+//
+//}
 
 // END

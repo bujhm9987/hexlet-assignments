@@ -115,7 +115,26 @@ public class AppTest {
 
     // Тест для дополнительной задачи
     // BEGIN
+    // @Test
+    // void testFilterByAllParams() throws Exception {
+    //     MockHttpServletResponse response = mockMvc
+    //         .perform(get("/users?firstName=o&lastName=a&profession=manager&gender=Female"))
+    //         .andReturn()
+    //         .getResponse();
 
+    //     assertThat(response.getStatus()).isEqualTo(200);
+    //     assertThat(response.getContentType()).isEqualTo(MediaType.APPLICATION_JSON.toString());
+
+    //     List<User> actualUsers = objectMapper.readValue(
+    //         response.getContentAsString(),
+    //         new TypeReference<List<User>>(){}
+    //     );
+
+    //     User actualUser = actualUsers.get(1);
+    //     assertThat(actualUsers.size()).isEqualTo(2);
+    //     assertThat(actualUser.getFirstName()).isEqualTo("Tamiko");
+    //     assertThat(actualUser.getLastName()).isEqualTo("Serman");
+    // }
     
     // END
 }
