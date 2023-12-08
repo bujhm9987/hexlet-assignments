@@ -32,8 +32,8 @@ class App {
             throw new RuntimeException(e);
         }
 
-        result.put("min=", minThread.getMinNumber());
-        result.put("max=", maxThread.getMinNumber());
+        result.put("min", minThread.getMinNumber());
+        result.put("max", maxThread.getMinNumber());
 
         return result;
     }
