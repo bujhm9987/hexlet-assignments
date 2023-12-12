@@ -2,6 +2,7 @@ package exercise;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.StandardOpenOption;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.nio.file.Paths;
@@ -32,7 +33,6 @@ class App {
         for (File file: Objects.requireNonNull(path.listFiles())) {
             if (file.isFile()) {
                 size += file.length();
-                System.out.println(file.getAbsolutePath());
             }
         }
         return size;
@@ -47,7 +47,7 @@ class App {
     public static CompletableFuture<String> unionFiles(String pathIn1, String pathIn2, String pathOut) throws Exception {
 
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
-            String fileData1;
+            String fileData1 = "";
             try {
                 fileData1 = Files.readString(getPath(pathIn1));
             } catch (IOException e) {
@@ -57,7 +57,7 @@ class App {
         });
 
         CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
-            String fileData2;
+            String fileData2 = "";
             try {
                 fileData2 = Files.readString(getPath(pathIn2));
             } catch (IOException e) {
@@ -70,7 +70,7 @@ class App {
 
             String result = string1 + string2;
             try {
-                Files.write(getPath(pathOut), result.getBytes());
+                Files.write(getPath(pathOut), result.getBytes(), StandardOpenOption.CREATE);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
