@@ -32,7 +32,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Mono deleteUser(Long id) {
+    public Mono<Void> deleteUser(Long id) {
         return userRepository.deleteById(id);
     }
     // END
